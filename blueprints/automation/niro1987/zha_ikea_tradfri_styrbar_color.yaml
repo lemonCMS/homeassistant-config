@@ -51,7 +51,7 @@ variables:
   var_light: !input light
   var_speed: !input speed
   var_step_hue: 18
-  var_step_saturation: 10
+  var_step_saturation: 5
 
 trigger:
   - platform: event
@@ -138,10 +138,10 @@ action:
               hs_color:
                 - '{{ state_attr(var_light, "hs_color")[0] }}'
                 - >-
-                  {% if state_attr(var_light, "hs_color")[1] == 0 %}
+                  {% if state_attr(var_light, "hs_color")[1] - var_step_saturation == var_step_saturation * -1 %}
                     {{ 100 }}
-                  {% elif state_attr(var_light, "hs_color")[1] - var_step_saturation < 0 %}
-                    {{ 50 }}
+                  {% if state_attr(var_light, "hs_color")[1] - var_step_saturation <= 0 %}
+                    {{ 0 }}
                   {% else %}
                     {{ state_attr(var_light, "hs_color")[1] - var_step_saturation }}
                   {% endif %}
