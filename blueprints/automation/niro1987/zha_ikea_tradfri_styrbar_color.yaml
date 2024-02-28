@@ -138,10 +138,10 @@ action:
                 - >-
                   {% if state_attr(var_light, "hs_color")[1]|int == 0 %}
                     {{ 100|int }}
-                  {% elif state_attr(var_light, "hs_color")[1] - 20 < 0 %}
+                  {% elif state_attr(var_light, "hs_color")[1] - 10 < 0 %}
                     {{ 0|int }}
                   {% else %}
-                    {{ state_attr(var_light, "hs_color")[1] - 20 }}
+                    {{ state_attr(var_light, "hs_color")[1] - 10 }}
                   {% endif %}
               transition: "{{ (var_speed / 1000)|float }}"
 
