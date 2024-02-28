@@ -140,7 +140,7 @@ action:
                 - >-
                   {% if state_attr(var_light, "hs_color")[1] - var_step_saturation == var_step_saturation * -1 %}
                     {{ 100 }}
-                  {% if state_attr(var_light, "hs_color")[1] - var_step_saturation <= 0 %}
+                  {% if state_attr(var_light, "hs_color")[1] - var_step_saturation < 0 %}
                     {{ 0 }}
                   {% else %}
                     {{ state_attr(var_light, "hs_color")[1] - var_step_saturation }}
