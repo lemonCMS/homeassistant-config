@@ -187,13 +187,13 @@ action:
               hs_color:
                 - >-
                   {% if state_attr(var_light, "hs_color")[0]|int == 360 %}
-                    {{ 0|int }}
+                    {{ 0|float }}
                   {% elif state_attr(var_light, "hs_color")[0] + 18 > 360 %}
-                    {{ 360|int }}
+                    {{ 360|float }}
                   {% else %}
-                    {{ state_attr(var_light, "hs_color")[0] + 18 }}
+                    {{ state_attr(var_light, "hs_color")[0] + 18|float }}
                   {% endif %}
-                - '{{ state_attr(var_light, "hs_color")[1] }}'
+                - '{{ state_attr(var_light, "hs_color")[1]|float }}'
               transition: "{{ (var_speed / 1000)|float }}"
 
       # Long-Press on the right button.
