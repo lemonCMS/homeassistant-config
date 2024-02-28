@@ -203,7 +203,7 @@ action:
                   {% else %}
                     {{ state_attr(var_light, "hs_color")[0] + 18|float }}
                   {% endif %}
-                - '{{ state_attr(var_light, "hs_color")[1]|float }}'
+                - '{{ state_attr(var_light, "hs_color")[1]|int }}'
               transition: "{{ (var_speed / 1000)|float }}"
 
       # Long-Press on the right button.
