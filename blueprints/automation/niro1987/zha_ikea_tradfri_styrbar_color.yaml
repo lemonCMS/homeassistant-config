@@ -50,8 +50,6 @@ max_exceeded: silent
 variables:
   var_light: !input light
   var_speed: !input speed
-  var_step_hue: 18
-  var_step_saturation: 5
 
 trigger:
   - platform: event
@@ -73,7 +71,7 @@ action:
             target:
               entity_id: !input light
             data:
-              # brightness: 254
+              brightness: 175
               # hs_color:
               #  - 38.222
               #  - 52.941
@@ -138,12 +136,10 @@ action:
               hs_color:
                 - '{{ state_attr(var_light, "hs_color")[0] }}'
                 - >-
-                  {% if state_attr(var_light, "hs_color")[1] == 0 %}
-                    {{ 100 }}
-                  {% if state_attr(var_light, "hs_color")[1] - var_step_saturation < 0 %}
-                    {{ 0 }}
+                  {% if state_attr(var_light, "hs_color")[1] - 20 < 0 %}
+                    {{ state_attr(var_light, "hs_color")[1] - 20 + 100 }}
                   {% else %}
-                    {{ state_attr(var_light, "hs_color")[1] - var_step_saturation }}
+                    {{ state_attr(var_light, "hs_color")[1] - 20 }}
                   {% endif %}
               transition: "{{ (var_speed / 1000)|float }}"
 
@@ -164,12 +160,10 @@ action:
                     hs_color:
                       - '{{ state_attr(var_light, "hs_color")[0] }}'
                       - >-
-                        {% if state_attr(var_light, "hs_color")[1] == 0 %}
-                          {{ 100 }}
-                        {% elif state_attr(var_light, "hs_color")[1] - var_step_saturation < 0 %}
-                          {{ 0 }}
+                        {% if state_attr(var_light, "hs_color")[1] - 10 < 0 %}
+                          {{ state_attr(var_light, "hs_color")[1] - 10 + 100 }}
                         {% else %}
-                          {{ state_attr(var_light, "hs_color")[1] - var_step_saturation }}
+                          {{ state_attr(var_light, "hs_color")[1] - 10 }}
                         {% endif %}
                     transition: "{{ (var_speed / 1000)|float }}"
                 - delay:
