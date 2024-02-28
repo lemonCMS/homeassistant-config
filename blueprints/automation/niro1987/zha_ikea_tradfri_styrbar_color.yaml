@@ -52,6 +52,7 @@ blueprint:
           min: 0
           max: 100
           mode: box
+      default: 69
 
 mode: restart
 max_exceeded: silent
