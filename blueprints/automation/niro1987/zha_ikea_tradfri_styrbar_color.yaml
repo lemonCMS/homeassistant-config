@@ -49,6 +49,8 @@ blueprint:
       description: Input too save the current saturation
       selector:
         number:
+          min: 0
+          max: 100
           mode: box
 
 mode: restart
