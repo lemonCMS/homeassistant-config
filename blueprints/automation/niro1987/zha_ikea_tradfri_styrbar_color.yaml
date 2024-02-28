@@ -186,8 +186,10 @@ action:
             data:
               hs_color:
                 - >-
-                  {% if state_attr(var_light, "hs_color")[0] + 18 > 360 %}
-                    {{ state_attr(var_light, "hs_color")[0] + 18 - 360 }}
+                  {% if state_attr(var_light, "hs_color")[0]|int == 360 %}
+                    {{ 0|int }}
+                  {% elif state_attr(var_light, "hs_color")[0] + 18 > 360 %}
+                    {{ 360|int }}
                   {% else %}
                     {{ state_attr(var_light, "hs_color")[0] + 18 }}
                   {% endif %}
