@@ -212,7 +212,7 @@ action:
             target:
               entity_id: input_number.saturation
             data:
-              value: "{{ trigger.payload }}"
+              value: "33"
 
       # Long-Press on the right button.
       - conditions:
