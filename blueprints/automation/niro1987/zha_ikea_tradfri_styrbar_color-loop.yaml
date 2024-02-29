@@ -59,6 +59,23 @@ trigger:
 
 action:
   - choose:
+      # Short-Press on the dim-up button.
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.command == "on" }}'
+          - condition: state
+            entity_id: !input light
+            state: "off"
+        sequence:
+          - service: light.turn_on
+            target:
+              entity_id: !input light
+            data:
+              brightness: 176
+              #color_temp_kelvin: 2400
+              effect: colorloop
+              transition: "{{ (var_speed / 1000)|int }}"
+
       # Long-Press on the right button.
       - conditions:
           - condition: template
@@ -73,8 +90,8 @@ action:
               effect: colorloop
       # Long-Press RELEASE on the right button.
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "release" }}'
+          # - condition: template
+          #   value_template: '{{ trigger.event.data.command == "release" }}'
           - condition: template
             value_template: "{{ trigger.event.data.args == [3328,0] }}"
         sequence:
