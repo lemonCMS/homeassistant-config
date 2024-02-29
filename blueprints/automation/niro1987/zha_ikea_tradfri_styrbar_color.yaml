@@ -137,11 +137,11 @@ action:
                 - '{{ states("input_number.hue") }}'
                 - >-
                   {% if states("input_number.saturation") == 0 %}
-                    {{ 100|int }}
-                  {% elif states("input_number.saturation") - 10 < 0 %}
-                    {{ 0|int }}
+                    {{ 100|float }}
+                  {% elif (states("input_number.saturation") | float) - 10 < 0 %}
+                    {{ 0|float }}
                   {% else %}
-                    {{ (states("input_number.saturation") - 10) |int }}
+                    {{ (states("input_number.saturation") - 10) |float }}
                   {% endif %}
               transition: "{{ (var_speed / 1000)|int }}"
           - delay:
