@@ -63,9 +63,6 @@ action:
       - conditions:
           - condition: template
             value_template: '{{ trigger.event.data.command == "on" }}'
-          - condition: state
-            entity_id: !input light
-            state: "off"
         sequence:
           - service: light.turn_on
             target:
@@ -74,7 +71,7 @@ action:
               brightness: 176
               color_temp_kelvin: 2400
               transition: "{{ (var_speed / 1000)|int }}"
-              effect: none
+              effect: stop
 
       # Long-Press on the right button.
       - conditions:
