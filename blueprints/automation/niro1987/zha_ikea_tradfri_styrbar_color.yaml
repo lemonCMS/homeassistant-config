@@ -144,6 +144,13 @@ action:
                     {{ state_attr(var_light, "hs_color")[1] - 10|int }}
                   {% endif %}
               transition: "{{ (var_speed / 1000)|int }}"
+          - delay:
+              milliseconds: !input speed
+          - service: input_number.set_value
+            target:
+              entity_id: input_number.saturation
+            data:
+              value: '{{ state_attr(var_light, "hs_color")[1]|int }}'
 
       # Long-Press on the left button.
       - conditions:
@@ -195,13 +202,6 @@ action:
                   {% endif %}
                 - '{{ state_attr(var_light, "hs_color")[1]|int }}'
               transition: "{{ (var_speed / 1000)|int }}"
-          - delay:
-              milliseconds: !input speed
-          - service: input_number.set_value
-            target:
-              entity_id: input_number.saturation
-            data:
-              value: 33
 
       # Long-Press on the right button.
       - conditions:
