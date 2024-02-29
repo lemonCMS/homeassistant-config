@@ -136,9 +136,9 @@ action:
               hs_color:
                 - '{{ states("input_number.hue")|int }}'
                 - >-
-                  {% if state_attr(var_light, "hs_color")[1]|int == 0 %}
+                  {% if states("input_number.saturation")|int == 0 %}
                     {{ 100|int }}
-                  {% elif state_attr(var_light, "hs_color")[1] - 10 < 0 %}
+                  {% elif (states("input_number.saturation")|int) - 10 < 0 %}
                     {{ 0|int }}
                   {% else %}
                     {{ state_attr(var_light, "hs_color")[1] - 10|int }}
