@@ -134,7 +134,7 @@ action:
               entity_id: !input light
             data:
               hs_color:
-                - '{{ states("input_number.hue") }}'
+                - '{{ states("input_number.hue")|int }}'
                 - >-
                   {% if states("input_number.saturation") == 0 %}
                     {{ 100|float }}
