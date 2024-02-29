@@ -99,10 +99,8 @@ action:
             target:
               entity_id: !input light
             data:
-              brightness: 254
-              hs_color:
-                - 38.222
-                - 52.941
+              brightness: 176
+              color_temp_kelvin: 2400
               transition: "{{ (var_speed / 1000)|float }}"
 
       # Long-Press on the dim-up button.
