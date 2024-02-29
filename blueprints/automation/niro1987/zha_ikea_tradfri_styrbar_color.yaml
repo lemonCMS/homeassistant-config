@@ -72,9 +72,9 @@ action:
               entity_id: !input light
             data:
               brightness: 69
-              # hs_color:
-              #  - 38.222
-              #  - 52.941
+              hs_color:
+                - 30.222
+                - 94.941
               transition: "{{ (var_speed / 1000)|int }}"
 
       # Long-Press on the dim-up button.
@@ -134,14 +134,14 @@ action:
               entity_id: !input light
             data:
               hs_color:
-                - '{{ states("input_number.hue")|int }}'
+                - '{{ states("input_number.hue")|float }}'
                 - >-
-                  {% if states("input_number.saturation")|int == 0 %}
-                    {{ 100|int }}
-                  {% elif (states("input_number.saturation")|int) - 10 < 0 %}
-                    {{ 0|int }}
+                  {% if states("input_number.saturation")|float == 0 %}
+                    {{ 100|float }}
+                  {% elif (states("input_number.saturation")|float) - 10 < 0 %}
+                    {{ 0|float }}
                   {% else %}
-                    {{ (states("input_number.saturation")|int) - 10|int }}
+                    {{ (states("input_number.saturation")|float) - 10|float }}
                   {% endif %}
               transition: "{{ (var_speed / 1000)|int }}"
           - delay:
