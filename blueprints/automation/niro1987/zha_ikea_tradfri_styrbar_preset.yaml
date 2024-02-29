@@ -208,7 +208,7 @@ action:
               entity_id: !input light
             data:
               transition: "{{ (var_speed / 1000)|float }}"
-              color_temp_kelvin: "{{ states(var_preset) }}"
+              color_temp_kelvin: "{{ states(var_presetKelvin)|int }}"
 
       # Long-Press on the left button.
       - conditions:
@@ -230,7 +230,7 @@ action:
                     entity_id: !input light
                   data:
                     transition: "{{ (var_speed / 1000)|float }}"
-                    color_temp_kelvin: "{{ states(var_preset) }}"
+                    color_temp_kelvin: "{{ states(var_presetKelvin)|int }}"
                 - delay:
                     milliseconds: !input speed
 
