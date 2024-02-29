@@ -50,7 +50,6 @@ max_exceeded: silent
 variables:
   var_light: !input light
   var_speed: !input speed
-  var_saturation: !input saturation
 
 trigger:
   - platform: event
@@ -194,8 +193,15 @@ action:
                   {% else %}
                     {{ state_attr(var_light, "hs_color")[0] + 18|int }}
                   {% endif %}
-                - '{{ var_saturation|int }}'
+                - '{{ state_attr(var_light, "hs_color")[1]|int }}'
               transition: "{{ (var_speed / 1000)|int }}"
+          - delay:
+              milliseconds: !input speed
+          - service: input_number.set_value
+            target:
+              entity_id: input_number.saturation
+            data:
+              value: 33
 
       # Long-Press on the right button.
       - conditions:
@@ -220,7 +226,7 @@ action:
                         {% else %}
                           {{ state_attr(var_light, "hs_color")[0] + 18|int }}
                         {% endif %}
-                      - '{{ var_saturation|int }}'
+                      - '{{ state_attr(var_light, "hs_color")[1]|int }}'
                     transition: "{{ (var_speed / 1000)|int }}"
                 - delay:
                     milliseconds: !input speed
