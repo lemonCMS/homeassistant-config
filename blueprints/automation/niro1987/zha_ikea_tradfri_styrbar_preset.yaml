@@ -44,16 +44,8 @@ blueprint:
           mode: slider
       default: 500
 
-    presetKelvin:
-      name: Helper (Kelvin)
-      description: Select the helper entity with you pre defined settings.
-      selector:
-        entity:
-          filter:
-            - domain: input_select
-
     preset:
-      name: Helper (HS)
+      name: Helper
       description: Select the helper entity with you pre defined settings.
       selector:
         entity:
@@ -64,7 +56,6 @@ mode: restart
 max_exceeded: silent
 
 variables:
-  var_presetKelvin: !input presetKelvin
   var_preset: !input preset
   var_speed: !input speed
 
@@ -99,8 +90,10 @@ action:
             target:
               entity_id: !input light
             data:
-              brightness: 176
-              color_temp_kelvin: 2400
+              brightness: 254
+              hs_color:
+                - 38.222
+                - 52.941
               transition: "{{ (var_speed / 1000)|float }}"
 
       # Long-Press on the dim-up button.
@@ -198,9 +191,9 @@ action:
           - condition: template
             value_template: "{{ trigger.event.data.args == [257,13,0] }}"
         sequence:
-          - service: input_select.select_next
+          - service: input_select.select_previous
             target:
-              entity_id: !input var_presetKelvin
+              entity_id: !input preset
             data:
               cycle: true
           - service: light.turn_on
@@ -208,7 +201,7 @@ action:
               entity_id: !input light
             data:
               transition: "{{ (var_speed / 1000)|float }}"
-              color_temp_kelvin: "{{ states(var_presetKelvin)|int }}"
+              hs_color: "{{ states(var_preset) }}"
 
       # Long-Press on the left button.
       - conditions:
@@ -222,7 +215,7 @@ action:
               sequence:
                 - service: input_select.select_previous
                   target:
-                    entity_id: !input var_presetKelvin
+                    entity_id: !input preset
                   data:
                     cycle: true
                 - service: light.turn_on
@@ -230,7 +223,7 @@ action:
                     entity_id: !input light
                   data:
                     transition: "{{ (var_speed / 1000)|float }}"
-                    color_temp_kelvin: "{{ states(var_presetKelvin)|int }}"
+                    hs_color: "{{ states(var_preset) }}"
                 - delay:
                     milliseconds: !input speed
 
