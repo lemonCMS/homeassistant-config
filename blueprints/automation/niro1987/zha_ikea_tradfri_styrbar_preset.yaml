@@ -51,12 +51,21 @@ blueprint:
         entity:
           filter:
             - domain: input_select
+    
+    presetKelvin:
+      name: Helper_KELVIN
+      description: Select the helper entity with you pre defined settings.
+      selector:
+        entity:
+          filter:
+            - domain: input_select
 
 mode: restart
 max_exceeded: silent
 
 variables:
   var_preset: !input preset
+  var_presetKelvin: !input presetKelvin
   var_speed: !input speed
 
 trigger:
