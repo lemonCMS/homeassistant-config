@@ -71,7 +71,7 @@ action:
             target:
               entity_id: !input light
             data:
-              brightness: 69
+              brightness: 176
               hs_color:
                 - 30.222
                 - 94.941
