@@ -222,7 +222,7 @@ action:
               sequence:
                 - service: input_select.select_previous
                   target:
-                    entity_id: !input preset
+                    entity_id: !input presetKelvin
                   data:
                     cycle: true
                 - service: light.turn_on
@@ -230,7 +230,7 @@ action:
                     entity_id: !input light
                   data:
                     transition: "{{ (var_speed / 1000)|float }}"
-                    hs_color: "{{ states(var_preset) }}"
+                    hs_color: "{{ states(var_presetKelvin)|int }}"
                 - delay:
                     milliseconds: !input speed
 
