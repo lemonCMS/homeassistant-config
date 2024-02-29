@@ -150,7 +150,7 @@ action:
             target:
               entity_id: input_number.saturation
             data:
-              value: '{{ state_attr(var_light, "hs_color")[1]|int }}'
+              value: "{{ state_attr(var_light, 'hs_color')[1] | int }}"
 
       # Long-Press on the left button.
       - conditions:
