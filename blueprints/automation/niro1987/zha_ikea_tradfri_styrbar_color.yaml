@@ -200,7 +200,7 @@ action:
                   {% else %}
                     {{ state_attr(var_light, "hs_color")[0] + 18|int }}
                   {% endif %}
-                - '{{ state_attr(var_light, "hs_color")[1]|int }}'
+                - '{{ states("input_number.saturation") | int }}'
               transition: "{{ (var_speed / 1000)|int }}"
 
       # Long-Press on the right button.
